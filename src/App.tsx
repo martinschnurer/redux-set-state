@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { setState } from "./redux/action";
 import update from "immutability-helper";
 import { useSelector } from "react-redux";
 import { AppState } from "./redux/store";
+import Footer from "./Footer";
 
 const addTodo = (name: string) =>
   setState((state) =>
@@ -28,6 +29,7 @@ function App() {
     setName("");
   };
 
+  // const ctx = useContext();
   const todos = useSelector((state: AppState) => state.list);
 
   return (
@@ -45,6 +47,10 @@ function App() {
         {todos.map((todo, i) => (
           <div key={i}>{todo.name}</div>
         ))}
+
+        <div style={{ marginTop: 50 }}>
+          <Footer callback={useCallback(() => window.alert("Hello"), [])} />
+        </div>
       </header>
     </div>
   );
